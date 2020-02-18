@@ -6,4 +6,4 @@ Building Microservices with Go course by Nic Jackson
 ### [Lec 2](https://github.com/BizAhmad/go-Microservices/tree/lec2): creating a simple microservice and discovering libaries
 
 
-### [Lec 3]()
+### [Lec 3](https://github.com/BizAhmad/go-Microservices/tree/lec3): simple GET RestAPI
