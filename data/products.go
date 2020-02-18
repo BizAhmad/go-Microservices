@@ -2,6 +2,8 @@ package data
 
 import (
 	"time"
+	"io"
+	"encoding/json"
 )
 
 // Product defines the structure for an API product
@@ -16,9 +18,23 @@ type Product struct {
 	DeletedOn   string  `json:"-"`
 }
 
-func GetProducts() []*Product {
+
+
+func GetProducts() Products {
 	return productList
 }
+//instead we can define a type of slice products like this:
+
+type Products []*Product
+
+//we can encapsulate the logic for encoding the json in here
+// we want to use this instead of saying json.marshall
+// but we need to create an encoder then encode it. (faster, Uses more memory than Marshall)
+func (p*Products) ToJSON(w io.Writer) error {
+	e := json.NewEncoder(w)
+	return e.Encode(p)
+}
+
 
 // productList is a hard coded list of products for this
 // example data source

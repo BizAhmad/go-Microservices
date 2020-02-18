@@ -21,7 +21,7 @@ func main() {
 	//creating our own server config
 	//More control over the server's behavior is available by creating a custom Server:
 	s := &http.Server{
-		Addr:         ":8080",
+		Addr:         ":3000",
 		Handler:      sm,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
