@@ -27,7 +27,7 @@ func GetProducts() Products {
 
 type Products []*Product
 
-//we can encapsulate the logic for encoding the json in here
+// we can encapsulate the logic for encoding the json in here
 // we want to use this instead of saying json.marshall
 // but we need to create an encoder then encode it. (faster, Uses more memory than Marshall)
 func (p*Products) ToJSON(w io.Writer) error {
