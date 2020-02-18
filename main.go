@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -36,6 +37,7 @@ func main() {
 			os.Exit(1)
 		}
 	}()
+	fmt.Println("faaak")
 
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, os.Interrupt) //whenever a signal is received by the system itll send the message on that channel
