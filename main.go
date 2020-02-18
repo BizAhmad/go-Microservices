@@ -13,13 +13,10 @@ import (
 
 func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	hh := handlers.NewHello(l)
-	gh := handlers.NewGoodbye(l)
+	ph := handlers.NewProduct(l)
 
-	//http.HandleFunc() were converting this func into a handler type and registering it on the default servmux
 	sm := http.NewServeMux()
-	sm.Handle("/", hh)
-	sm.Handle("/goodbye", gh)
+	sm.Handle("/", ph)
 
 	//creating our own server config
 	//More control over the server's behavior is available by creating a custom Server:
