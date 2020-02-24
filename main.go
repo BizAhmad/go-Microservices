@@ -2,27 +2,39 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
+	"github.com/gorilla/mux"
+
 	"github.com/bizahmad/go-Microservices/handlers"
 )
 
 func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
+	//create the handlers
 	ph := handlers.NewProduct(l)
 
-	sm := http.NewServeMux()
-	sm.Handle("/", ph)
+	//router has concept of subrooters
+	sm := mux.NewRouter()
+
+	getRouter := sm.Methods("GET").Subrouter()
+	getRouter.HandleFunc("/", ph.GetProducts)
+
+	putRooter := sm.Methods(http.MethodPut).Subrouter()
+	putRooter.HandleFunc("/{id:[0-9]+}", ph.UpdateProducts)
+
+	postRooter := sm.Methods(http.MethodPost).Subrouter()
+	postRooter.HandleFunc("/", ph.AddProduct)
+	//sm.Handle("/products", ph)
 
 	//creating our own server config
 	//More control over the server's behavior is available by creating a custom Server:
 	s := &http.Server{
-		Addr:         ":3000",
+		Addr:         ":3030",
 		Handler:      sm,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
@@ -37,7 +49,6 @@ func main() {
 			os.Exit(1)
 		}
 	}()
-	fmt.Println("faaak")
 
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, os.Interrupt) //whenever a signal is received by the system itll send the message on that channel
