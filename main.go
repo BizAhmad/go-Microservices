@@ -26,9 +26,11 @@ func main() {
 
 	putRooter := sm.Methods(http.MethodPut).Subrouter()
 	putRooter.HandleFunc("/{id:[0-9]+}", ph.UpdateProducts)
+	putRooter.Use(ph.MiddlewareProductValidation)
 
 	postRooter := sm.Methods(http.MethodPost).Subrouter()
 	postRooter.HandleFunc("/", ph.AddProduct)
+	postRooter.Use(ph.MiddlewareProductValidation)
 	//sm.Handle("/products", ph)
 
 	//creating our own server config
